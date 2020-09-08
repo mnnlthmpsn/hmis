@@ -1,0 +1,54 @@
+{% extends './index.html' %}
+
+{% block title %} All Staff {% endblock %}
+
+{% block pageName %} All Staff {% endblock %}
+
+{% block pageNameUrl %} Staff {% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for staff in all_staff %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{ staff.staff_ID }}</td>
+                    <td>{{ staff.profile.full_name }}</td>
+                    <td>{{ staff.profile.role }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a href="{% url 'administrator:update_staff' staff.id %}" class="btn btn-info"
+                                role="button">
+                                Update
+                            </a>
+                            <button type="button" class="btn btn-danger disabled">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>Empty</td>
+                    <td>Empty</td>
+                    <td>Empty</td>
+                    <td>Empty</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}

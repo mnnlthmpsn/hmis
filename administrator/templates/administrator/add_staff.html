@@ -1,0 +1,20 @@
+{% extends './index.html' %}
+
+{% block title %} Add Staff {% endblock %}
+
+{% block pageName %} Add Staff {% endblock %}
+
+{% block pageNameUrl %} Add Staff {% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            
+            <form method="POST">
+                {{form.as_p}}
+                {% csrf_token %}
+                <input type="submit" value="Add User" class="btn btn-info mb-5">
+            </form>
+        </div>
+    </div>
+{% endblock %}

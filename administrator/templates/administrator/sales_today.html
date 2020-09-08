@@ -1,0 +1,58 @@
+{% extends './index.html' %}
+
+{% block title %} Sales | {{ today }} {% endblock %}
+
+{% block pageName %} Sales for {{ today }} {% endblock %}
+
+{% block pageNameUrl %} Sales | {{ today}} {% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Seller</th>
+                    <th scope="col">Drug</th>
+                    <th scope="col">Qty Sold</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sales in all_sales %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{ sales.period }}</td>
+                    <td>{{ sales.seller.profile.full_name }}</td>
+                    <td>{{ sales.drug.name }}</td>
+                    <td>{{ sales.qty_sold }}</td>
+                    <td>{{ sales.selling_price }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>Empty</td>
+                    <td>Empty</td>
+                    <td>Empty</td>
+                    <td>Empty</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfooter>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Total</th>
+                    <th scope="col">{{ total_qty }}</th>
+                    <th scope="col">{{ total_price }}</th>
+                </tr>
+            </tfooter>
+        </table>
+
+    </div>
+</div>
+{% endblock %}

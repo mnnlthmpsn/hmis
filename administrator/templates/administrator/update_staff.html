@@ -1,0 +1,50 @@
+{% extends './index.html' %}
+
+{% block title %} Update Staff {% endblock %}
+
+{% block pageName %} Update {{ staff.profile.full_name }} {% endblock %}
+
+{% block pageNameUrl %} Update Staff {% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail1">Staff ID</label>
+                <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
+                    value="{{staff.staff_ID}}" disabled>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Staff Email</label>
+                <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
+                    value="{{staff.email}}">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Staff Firstname</label>
+                <input type="text" class="form-control" name="firstname" value="{{ staff.profile.firstname }}">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Staff Lastname</label>
+                <input type="text" class="form-control" name="lastname" value="{{ staff.profile.lastname }}">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Staff Telephone</label>
+                <input type="text" class="form-control" name="telephone" value="{{ staff.profile.telephone }}">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Staff Role</label>
+                <select class="form-control" name="role">
+                    {% for role in roles %}
+                    <option>{{ role.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <small><strong><p class="text-info">{{staff.profile.full_name}} is a/an {{ staff.profile.role.name }}</p></strong></small>
+            <input type="submit" value="Update " class="btn btn-info mb-5">
+        </form>
+    </div>
+</div>
+{% endblock %}
