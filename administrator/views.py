@@ -165,3 +165,7 @@ def sales_today(request):
         'total_price': total_price,
         'total_qty': total_qty
     })
+
+def all_sales_list(request):
+    all_sales = Sales.objects.all().values('period')
+    return render(request, 'administrator/all_sales_list.html', {'all_sales': all_sales})

@@ -1,0 +1,40 @@
+{% extends './index.html' %}
+
+{% block title %} All Sales {% endblock %}
+
+{% block pageName %} Sales {% endblock %}
+
+{% block pageNameUrl %} Sales {% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Total Sales</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sales in all_sales %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{ sales.period }}</td>
+                    <td>{{ total_sales }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>Empty</td>
+                    <td>Empty</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}

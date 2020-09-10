@@ -136,7 +136,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <ul class="nav nav-treeview">
                 {% if request.user.profile.role.name == 'Administrator' %}
                 <li class="nav-item">
-                  <a href="{% url 'administrator:all_staff' %}" class="nav-link active">
+                  <a href="{% url 'administrator:all_sales_list' %}" class="nav-link active">
                     <i class="far fas fa-archive nav-icon"></i>
                     <p>View All Sales</p>
                   </a>

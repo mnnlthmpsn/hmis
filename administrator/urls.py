@@ -20,5 +20,6 @@ urlpatterns = [
     # sales
     path('sell', views.sell, name='sell'),
     path('sales/today/', views.sales_today, name='sales_today'),
+    path('sales/all/', views.all_sales_list, name='all_sales_list'),
     
 ]
