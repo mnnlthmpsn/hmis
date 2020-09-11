@@ -30,7 +30,11 @@
                     <td>{{ drug.name }}</td>
                     <td>{{ drug.description }}</td>
                     <td>{{ drug.price }}</td>
+                    {% if drug.qty_in_stock < 6 %}
+                    <td class="text-danger">{{ drug.qty_in_stock }}</td>
+                    {% else %}
                     <td>{{ drug.qty_in_stock }}</td>
+                    {% endif %}
                     <td>
                         {% if request.user.profile.role.name == 'Administrator' %}
                         <div class="btn-group" role="group" aria-label="Basic example">

@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 {% else %}
                 <li class="nav-item">
                   <a href="/dashboard" class="nav-link active">
-                    <i class="far fab fa-sellsy nav-icon"></i>
+                    <i class="far fas fa-coins nav-icon"></i>
                     <p>Sell</p>
                   </a>
                 </li>
@@ -159,6 +159,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <a href="{% url 'administrator:sales_today' %}" class="nav-link active">
                     <i class="far fas fa-calendar nav-icon"></i>
                     <p>View Today's Sales</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'administrator:shortage' %}" class="nav-link active">
+                    <i class="far fas fa-box-open nav-icon"></i>
+                    <p>View Shortages</p>
                   </a>
                 </li>
               </ul>

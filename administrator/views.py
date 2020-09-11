@@ -118,6 +118,7 @@ def update_drug(request, drug_name):
         form = DrugForm(request.POST, instance=drug)
         if form.is_valid():
             form.save()
+            create_log_entry(request.user.profile.full_name(), f'udpated drug {drug.name}')
             return HttpResponseRedirect(reverse('administrator:all_drugs'))
     return render(request, 'administrator/update_drug.html', {
         'form': form
@@ -128,6 +129,7 @@ def update_drug(request, drug_name):
 def sell(request):
     searchItem = request.GET['searchItem']
     drugs = Drug.objects.filter(name__contains=searchItem)
+    error = False
 
     if request.method == 'POST':
         drug_name = request.POST['drug']
@@ -135,13 +137,16 @@ def sell(request):
         selling_price = request.POST['s_price']
         seller = request.user
         qty_sold = request.POST['p_qty']
-        sales = Sales(drug=drug, selling_price=selling_price, seller=seller, qty_sold=qty_sold)
-        sales.save()
 
-        # update drug
-        drug.qty_in_stock = int(drug.qty_in_stock) - int(qty_sold)
-        drug.save()
-    return render(request, 'administrator/index.html', {'drugs': drugs})
+        if int(qty_sold) > int(drug.qty_in_stock):
+            error = True
+        else:
+            sales = Sales(drug=drug, selling_price=selling_price, seller=seller, qty_sold=qty_sold)
+            sales.save()
+            # update drug
+            drug.qty_in_stock = int(drug.qty_in_stock) - int(qty_sold)
+            drug.save()
+    return render(request, 'administrator/index.html', {'drugs': drugs, 'error': error})
 
 def sales_today(request):
     today = date.today()
@@ -167,5 +172,22 @@ def sales_today(request):
     })
 
 def all_sales_list(request):
-    all_sales = Sales.objects.all().values('period')
+    sales = Sales.objects.all().values('period')
+    temp_sales = []
+    for i in sales:
+        temp_sales.append(i['period'])
+    all_sales = set(temp_sales)
     return render(request, 'administrator/all_sales_list.html', {'all_sales': all_sales})
+
+def sales_details(request, date):
+    sales = Sales.objects.filter(period=date)
+    total_sales = sales.values('selling_price')
+    total_price = 0
+    # sales
+    for i in total_sales:
+        total_price += i['selling_price']
+    return render(request, 'administrator/sales_details.html', {'sales': sales, 'date': date, 'total_price': total_price})
+
+def shortage(request):
+    shortages = Drug.objects.filter(qty_in_stock__lte = 5)
+    return render(request, 'administrator/shortage.html', {'shortages': shortages})

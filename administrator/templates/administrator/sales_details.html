@@ -1,8 +1,8 @@
 {% extends './index.html' %}
 
-{% block title %} All Sales {% endblock %}
+{% block title %} Sales | {{ date }} {% endblock %}
 
-{% block pageName %} Sales {% endblock %}
+{% block pageName %} Sales for {{ date }} {% endblock %}
 
 {% block pageNameUrl %} Sales {% endblock %}
 
@@ -14,18 +14,18 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Seller</th>
+                    <th scope="col">Drug</th>
+                    <th scope="col">Selling Price</th>
                 </tr>
             </thead>
             <tbody>
-                {% for sales in all_sales %}
+                {% for sale in sales %}
                 <tr>
                     <th scope="row">{{forloop.counter}}</th>
-                    <td>{{ sales }}</td>
-                    <td>
-                        <a href="{% url 'administrator:s_details' sales %}">View</a> | <a href="#delete_sales" class="text-danger">Delete</a>
-                    </td>
+                    <td>{{ sale.seller.profile.full_name }}</td>
+                    <td>{{ sale.drug.name }}</td>
+                    <td>{{ sale.selling_price }}</td>
                 </tr>
                 {% empty %}
                 <tr>
@@ -35,6 +35,14 @@
                 </tr>
                 {% endfor %}
             </tbody>
+            <tfooter>
+                <tr>
+                    <th></th>
+                    <th></td>
+                    <th>Total</td>
+                    <th>{{ total_price }}</td>
+                </tr>
+            </tfooter>
         </table>
 
     </div>

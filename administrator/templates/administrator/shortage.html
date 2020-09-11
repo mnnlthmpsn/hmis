@@ -1,10 +1,10 @@
 {% extends './index.html' %}
 
-{% block title %} All Sales {% endblock %}
+{% block title %} shortages {% endblock %}
 
-{% block pageName %} Sales {% endblock %}
+{% block pageName %} Drugs out of Stock {% endblock %}
 
-{% block pageNameUrl %} Sales {% endblock %}
+{% block pageNameUrl %} Shortages {% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
@@ -14,18 +14,18 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Drug</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Selling Price</th>
                 </tr>
             </thead>
             <tbody>
-                {% for sales in all_sales %}
+                {% for drug in shortages %}
                 <tr>
                     <th scope="row">{{forloop.counter}}</th>
-                    <td>{{ sales }}</td>
-                    <td>
-                        <a href="{% url 'administrator:s_details' sales %}">View</a> | <a href="#delete_sales" class="text-danger">Delete</a>
-                    </td>
+                    <td>{{ drug.name }}</td>
+                    <td class="text-danger">{{ drug.qty_in_stock }}</td>
+                    <td>{{ drug.price }}</td>
                 </tr>
                 {% empty %}
                 <tr>

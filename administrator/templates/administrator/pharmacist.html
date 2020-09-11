@@ -32,7 +32,11 @@
                 <td>{{ drug.name }}</td>
                 <td>{{ drug.description }}</td>
                 <td>{{ drug.price }}</td>
-                <td>{{ drug.qty_in_stock }}</td>
+                {% if drug.qty_in_stock < 6 %}
+                    <td class="text-danger">{{ drug.qty_in_stock }}</td>
+                    {% else %}
+                    <td>{{ drug.qty_in_stock }}</td>
+                    {% endif %}
                 {% empty %}
                 <th scope="row">{{forloop.counter}}</th>
                 <td>-</td>
@@ -45,6 +49,9 @@
     </table>
 </div>
 <hr class="my-2 w-25">
+{% if error == True %}
+    <small><p class="text-danger text-center">Not enough drugs to sell</p></small>
+{% endif %}
 <div class="container mx-auto ">
     <form method="POST">
         {% csrf_token %}
