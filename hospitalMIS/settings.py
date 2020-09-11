@@ -126,5 +126,5 @@ STATIC_URL = '/static/'
 LOGIN_URL = 'index'
 
 
-# import django_heroku
-# django_heroku.settings(locals())
+import django_heroku
+django_heroku.settings(locals())
